@@ -24,6 +24,7 @@ public class Office : MonoBehaviour
 
     public void FireEmployee()
     {
+        GameManagerScript.numberEmployees--;
         Destroy(employee.gameObject);
         employee = null;
         ChangeScreens("Materials/Black screen");

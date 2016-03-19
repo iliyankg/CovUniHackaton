@@ -30,6 +30,7 @@ public class OfficeManager : MonoBehaviour
 
     void CreateFloor(int number)
     {
+        GameManagerScript.numberOffices += 5;
         GameObject obj = Instantiate(floor, new Vector3(0, number * 5, 0), Quaternion.identity) as GameObject;
         obj.transform.SetParent(transform, false);
         obj.name = "Floor" + (number + 1);
