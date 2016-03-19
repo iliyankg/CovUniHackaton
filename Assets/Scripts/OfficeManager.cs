@@ -46,8 +46,6 @@ public class OfficeManager : MonoBehaviour
             transform.Translate(0, velocity * Time.deltaTime, 0);
         }
 
-
-        print(transform.position.y);
         if (transform.position.y > 0)
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         else if (transform.position.y < -(numberFloors - 1) * 5)
