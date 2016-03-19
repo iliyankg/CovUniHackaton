@@ -85,6 +85,7 @@ public class EmployeeFactory : MonoBehaviour
 
     public void CreateEmployee(Office office)
     {
+        GameManagerScript.numberEmployees++;
         GameObject temp = Instantiate(EmployeeToInstantiate, office.transform.position, office.transform.rotation) as GameObject;
         temp.GetComponent<Employee>().game_manager_handle = gmScript;
 
