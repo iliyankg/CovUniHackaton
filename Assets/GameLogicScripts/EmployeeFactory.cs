@@ -89,7 +89,7 @@ public class EmployeeFactory : MonoBehaviour
         if (goodActs.Length != 3)
             badActs = GenerateBadActs(goodActs.Length);
 
-        temp.GetComponent<Employee>().Populate(GenerateName(), goodActs, badActs, 100f);
+        temp.GetComponent<Employee>().Populate(GenerateName(), goodActs, badActs);
 
         //TODO: Calculate spawn location
         temp.transform.SetParent(room.transform);

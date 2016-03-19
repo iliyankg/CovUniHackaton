@@ -3,27 +3,28 @@ using System.Collections;
 
 public class Employee : MonoBehaviour
 {
-
     public string emp_name;
-    public float dailyMoneyContribution;
     public float isGoodPercentage = 50;
+
+    public GameObject gameManagerObj;
+    private GameManagerScript game_manager_handle;
 
     public EnumGood[] good_acts;
     public EnumBad[] bad_acts;
 
     int currentAction = -1;
 
-    public void Populate (string name, EnumGood[] good, EnumBad[] bad, float expectedContribution)
+    public void Populate (string name, EnumGood[] good, EnumBad[] bad)
     {
         emp_name = name;
         good_acts = good;
         bad_acts = bad;
-        dailyMoneyContribution = expectedContribution - (0.1f * (bad.Length) * expectedContribution);
     }
 
     // Use this for initialization
     void Start()
     {
+        game_manager_handle = gameManagerObj.GetComponent<GameManagerScript>();
         StartCoroutine(Action());
     }
 
@@ -42,8 +43,7 @@ public class Employee : MonoBehaviour
         else
             isGood = false;
 
-        //change anim and sound
-
+        /**************ANIM SWITCH******************/
         if (isGood)
         {
             currentAction = Random.Range(0, good_acts.Length - 1);
@@ -79,13 +79,17 @@ public class Employee : MonoBehaviour
             }
         }
 
-        
-
-        yield return new WaitForSeconds(Random.Range(5f, 15f));
-
-        //make/take money
-
-        StartCoroutine(Action());
+        //Seconds to run for
+        int secondsToRunFor = Random.Range(5, 10);
+        for (int i = 0; i <= secondsToRunFor; ++i)
+        {
+            yield return new WaitForSeconds(1);
+            if (isGood)
+                game_manager_handle.AddMoney(10);
+            else
+                game_manager_handle.RemoveMoney(10); ;
+        }
+                StartCoroutine(Action());
     }
 
 }
