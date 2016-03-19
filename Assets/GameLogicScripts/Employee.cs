@@ -10,6 +10,7 @@ public class Employee : MonoBehaviour
     public string emp_name;
     public float isGoodPercentage = 50;
     public float canDegradePercentage = 50f;
+    public float specialistPercentage = 90f;
 
     public GameManagerScript game_manager_handle;
 
@@ -19,6 +20,7 @@ public class Employee : MonoBehaviour
     private int currentAction = -1;
 
     [HideInInspector] public bool canDegradeFlag;
+    [HideInInspector] public bool isSpecialist;
 
 
     public void Populate (string name, EnumGood[] good, EnumBad[] bad)
@@ -31,6 +33,16 @@ public class Employee : MonoBehaviour
             canDegradeFlag = true;
         else
             canDegradeFlag = false;
+
+        if(Random.Range(0f, 100f) > specialistPercentage)
+        {
+            isSpecialist = true;
+            canDegradeFlag = true;
+        }
+        else
+        {
+            isSpecialist = false;
+        }
     }
 
     private void DegradeActions()
@@ -44,7 +56,20 @@ public class Employee : MonoBehaviour
         {
             Debug.Log("Cant Degrade More");
         }
-}
+    }
+
+    private void DegradeActions(int speacialForce)
+    {
+        if (good_acts.Length != 1)
+        {
+            good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(speacialForce);
+            bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
+        }
+        else
+        {
+            Debug.Log("Cant Degrade More");
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -118,6 +143,10 @@ public class Employee : MonoBehaviour
             {
                 elapsedDays = 0;
 
+                if (!isSpecialist)
+                    DegradeActions();
+                else
+                    DegradeActions(1);
             }
 
             yield return new WaitForSeconds(1);
