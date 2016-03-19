@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Office : MonoBehaviour
 {
+    public int officeType;
+    public Vector3 sittingPosition;
+    public Vector3 sittingRotation;
     public GameObject thisGameObject;
     public GameObject screen;
     public Employee employee;

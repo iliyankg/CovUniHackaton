@@ -109,8 +109,8 @@ public class EmployeeFactory : MonoBehaviour
         
         //TODO: Calculate spawn location
         temp.transform.SetParent(office.thisGameObject.transform, true);
-        temp.transform.localPosition = office.employeePosition;
-        temp.transform.localEulerAngles = office.employeeRotation;
+        temp.transform.localPosition = office.GetComponent<Office>().sittingPosition;
+        temp.transform.localEulerAngles = office.GetComponent<Office>().sittingRotation;
         office.employee = temp.GetComponent<Employee>();
         temp.GetComponent<Employee>().Populate(GenerateName(), goodActs, badActs);
 

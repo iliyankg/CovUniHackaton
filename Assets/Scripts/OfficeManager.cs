@@ -39,7 +39,31 @@ public class OfficeManager : MonoBehaviour
         obj.name = "Floor" + (number + 1);
         for (int i = 0; i < 5; i++)
         {
-            GameObject obj2 = Instantiate(officesPrefab[Random.Range(0, officesPrefab.Count)]);
+            int roomType = Random.Range(0, officesPrefab.Count);
+
+            GameObject obj2 = Instantiate(officesPrefab[roomType]);
+
+            obj2.GetComponent<Office>().officeType = roomType;
+
+            switch (roomType)
+            {
+                case 0:
+                    obj2.GetComponent<Office>().sittingPosition= new Vector3(-0.281f, -1.752f, 1.639f);
+                    obj2.GetComponent<Office>().sittingRotation = new Vector3(29.76165f, 270f, 270f);
+                    break;
+                case 1:
+                    obj2.GetComponent<Office>().sittingPosition = new Vector3(0.684f, -1.297f, 1.639f);
+                    obj2.GetComponent<Office>().sittingRotation = new Vector3(51.08162f, 269.9999f, 269.9999f);
+                    break;
+                case 2:
+                    obj2.GetComponent<Office>().sittingPosition = new Vector3(-0.893f, -0.667f, 1.64f);
+                    obj2.GetComponent<Office>().sittingRotation = new Vector3(70.57999f, 90.00022f, 90.00016f);
+                    break;
+
+            }
+
+
+
             obj2.name = "Room" + (i + 1);
             obj2.transform.SetParent(obj.transform, false);
             obj2.transform.localPosition = officePositions[i];
