@@ -1,62 +1,32 @@
 fileFormatVersion: 2
-guid: ea7f29d83a3eda545831346dee54a655
-timeCreated: 1458352679
+guid: 5f760b87baa9c8c4e84e7aaf6bca76cb
+timeCreated: 1458353531
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: Box003
-    100002: Chair
-    100004: Circle001
-    100006: Cone001
-    100008: Cube
-    100010: Desk
-    100012: Keyboard
-    100014: Mouse
-    100016: //RootNode
-    100018: Sphere001
-    100020: Teapot001
-    400000: Box003
-    400002: Chair
-    400004: Circle001
-    400006: Cone001
-    400008: Cube
-    400010: Desk
-    400012: Keyboard
-    400014: Mouse
-    400016: //RootNode
-    400018: Sphere001
-    400020: Teapot001
-    2300000: Box003
-    2300002: Chair
-    2300004: Circle001
-    2300006: Cone001
-    2300008: Cube
-    2300010: Desk
-    2300012: Keyboard
-    2300014: Mouse
-    2300016: Sphere001
-    2300018: Teapot001
-    3300000: Box003
-    3300002: Chair
-    3300004: Circle001
-    3300006: Cone001
-    3300008: Cube
-    3300010: Desk
-    3300012: Keyboard
-    3300014: Mouse
-    3300016: Sphere001
-    3300018: Teapot001
+    100000: Circle001
+    100002: Cube
+    100004: //RootNode
+    100006: Sphere001
+    100008: Teapot001
+    400000: Circle001
+    400002: Cube
+    400004: //RootNode
+    400006: Sphere001
+    400008: Teapot001
+    2300000: Circle001
+    2300002: Cube
+    2300004: Sphere001
+    2300006: Teapot001
+    3300000: Circle001
+    3300002: Cube
+    3300004: Sphere001
+    3300006: Teapot001
     4300000: Teapot001
-    4300002: Cone001
-    4300004: Circle001
-    4300006: Sphere001
-    4300008: Box003
-    4300010: Chair
-    4300012: Mouse
-    4300014: Keyboard
-    4300016: Desk
-    4300018: Cube
+    4300002: Circle001
+    4300004: Sphere001
+    4300006: Cube
     7400000: Default Take
     9500000: //RootNode
   materials:
