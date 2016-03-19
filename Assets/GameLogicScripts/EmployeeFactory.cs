@@ -133,7 +133,7 @@ public class EmployeeFactory : MonoBehaviour
             return male_names[(int)Random.Range(0f, male_names.Length - 1)];
     }
 
-    private EnumGood[] GenerateGoodActs()
+    public EnumGood[] GenerateGoodActs()
     {
         //Generate overal good number of actions
         float percentage = Random.Range(0f, 100f);
@@ -173,7 +173,42 @@ public class EmployeeFactory : MonoBehaviour
         
         return toReturn;
     }
-    private EnumBad[] GenerateBadActs(int numGoodActs)
+    public EnumGood[] GenerateGoodActs(int numOfGoodForce)
+    {
+        //Generate overal good number of actions
+        int numberOfGoodActs = numOfGoodForce;
+
+        //Get random actions
+        EnumGood[] toReturn = new EnumGood[numberOfGoodActs];
+
+        int numOfGood = (int)EnumGood.num_of_good;
+
+        for (int i = 0; i < numberOfGoodActs; ++i)
+        {
+            toReturn[i] = (EnumGood)Random.Range(0f, numOfGood);
+        }
+
+        if (numberOfGoodActs == 1)
+            return toReturn;
+        else if (numberOfGoodActs == 2)
+        {
+            while (toReturn[0] == toReturn[1])
+            {
+                toReturn[1] = (EnumGood)Random.Range(0f, numOfGood);
+            }
+        }
+        else if (numberOfGoodActs == 3)
+        {
+            while (toReturn[0] == toReturn[1] || toReturn[0] == toReturn[2])
+                toReturn[0] = (EnumGood)Random.Range(0f, numOfGood);
+
+            while (toReturn[1] == toReturn[2] || toReturn[1] == toReturn[0])
+                toReturn[1] = (EnumGood)Random.Range(0f, numOfGood);
+        }
+
+        return toReturn;
+    }
+    public EnumBad[] GenerateBadActs(int numGoodActs)
     {
         if (numGoodActs != 3)
         {
