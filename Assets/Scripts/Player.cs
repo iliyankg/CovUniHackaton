@@ -19,8 +19,7 @@ public class Player : MonoBehaviour
             RaycastHit hit;
             Physics.Raycast(centerAnchorTransform.position, fwd, out hit, 30);
             Debug.DrawLine(centerAnchorTransform.position, hit.point);
-
-            print(hit.transform.name);
+            
             if (hit.transform.tag == "Office")
             {
                 employeeFactory.CreateEmployee(hit.transform.GetComponent<Office>());

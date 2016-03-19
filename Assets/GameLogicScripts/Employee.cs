@@ -3,21 +3,72 @@ using System.Collections;
 
 public class Employee : MonoBehaviour
 {
+    private int dayTimeInSecconds = 120;
+    private int currentDayTime = 0;
+    private int elapsedDays = 0;
+
     public string emp_name;
     public float isGoodPercentage = 50;
-    
+    public float canDegradePercentage = 50f;
+    public float specialistPercentage = 90f;
+
     public GameManagerScript game_manager_handle;
 
     public EnumGood[] good_acts;
     public EnumBad[] bad_acts;
 
-    int currentAction = -1;
+    private int currentAction = -1;
+
+    [HideInInspector] public bool canDegradeFlag;
+    [HideInInspector] public bool isSpecialist;
+
 
     public void Populate (string name, EnumGood[] good, EnumBad[] bad)
     {
         emp_name = name;
         good_acts = good;
         bad_acts = bad;
+
+        if (Random.Range(0f, 100f) > canDegradePercentage)
+            canDegradeFlag = true;
+        else
+            canDegradeFlag = false;
+
+        if(Random.Range(0f, 100f) > specialistPercentage)
+        {
+            isSpecialist = true;
+            canDegradeFlag = true;
+        }
+        else
+        {
+            isSpecialist = false;
+        }
+    }
+
+    private void DegradeActions()
+    {
+        if(good_acts.Length != 1)
+        {
+            good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(good_acts.Length - 1);
+            bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
+        }
+        else
+        {
+            Debug.Log("Cant Degrade More");
+        }
+    }
+
+    private void DegradeActions(int speacialForce)
+    {
+        if (good_acts.Length != 1)
+        {
+            good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(speacialForce);
+            bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
+        }
+        else
+        {
+            Debug.Log("Cant Degrade More");
+        }
     }
 
     // Use this for initialization
@@ -81,6 +132,23 @@ public class Employee : MonoBehaviour
         int secondsToRunFor = Random.Range(5, 10);
         for (int i = 0; i <= secondsToRunFor; ++i)
         {
+            currentDayTime++;
+            if(currentDayTime > dayTimeInSecconds)
+            {
+                currentDayTime = 0;
+                elapsedDays++;
+            }
+
+            if(elapsedDays >= 3)
+            {
+                elapsedDays = 0;
+
+                if (!isSpecialist)
+                    DegradeActions();
+                else
+                    DegradeActions(1);
+            }
+
             yield return new WaitForSeconds(1);
             if (isGood)
                 game_manager_handle.AddMoney(10);

@@ -3,9 +3,11 @@ using System.Collections;
 
 public class GameManagerScript : MonoBehaviour {
 
-    EmployeeFactory EMPLOYEE_FACTORY;
+    public EmployeeFactory EMPLOYEE_FACTORY;
 
     public float playerMoney = 1000f;
+
+
 
     public void AddMoney(float moneyToAdd)
     {
