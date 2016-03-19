@@ -24,14 +24,22 @@ public class Office : MonoBehaviour
 
     public void FireEmployee()
     {
+        GameManagerScript.EMPLOYEE_FACTORY.ALL_EMPLOYEES.Remove(employee.gameObject);
         GameManagerScript.numberEmployees--;
         Destroy(employee.gameObject);
         employee = null;
         ChangeScreens("Materials/Black screen");
+        transform.GetChild(0).GetComponent<AudioSource>().Stop();
     }
 
     public void ChangeScreens(string name)
     {
         screen.GetComponent<Renderer>().material = Resources.Load(name) as Material;
+    }
+
+    public void ChangeSound(string name)
+    {
+        transform.GetChild(0).GetComponent<AudioSource>().clip = Resources.Load(name) as AudioClip;
+        transform.GetChild(0).GetComponent<AudioSource>().Play();
     }
 }

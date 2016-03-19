@@ -28,7 +28,7 @@ public class OfficeManager : MonoBehaviour
         MoveOffice();
 	}
 
-    void CreateFloor(int number)
+    public void CreateFloor(int number)
     {
         GameManagerScript.numberOffices += 5;
         GameObject obj = Instantiate(floor, new Vector3(0, number * 5, 0), Quaternion.identity) as GameObject;

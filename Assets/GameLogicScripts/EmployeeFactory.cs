@@ -83,8 +83,20 @@ public class EmployeeFactory : MonoBehaviour
 
     private GameManagerScript gmScript;
 
+    public float NumberGoodActs()
+    {
+        float count = 0;
+        foreach(GameObject g in ALL_EMPLOYEES)
+        {
+            if (g.GetComponent<Employee>().isGood)
+                count++;
+        }
+        return count;
+    }
+
     public void CreateEmployee(Office office)
     {
+        gmScript.RemoveMoney(200);
         GameManagerScript.numberEmployees++;
         GameObject temp = Instantiate(EmployeeToInstantiate, office.transform.position, office.transform.rotation) as GameObject;
         temp.GetComponent<Employee>().game_manager_handle = gmScript;

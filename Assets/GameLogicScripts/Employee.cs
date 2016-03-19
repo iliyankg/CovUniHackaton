@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Employee : MonoBehaviour
 {
-    private int dayTimeInSecconds = 120;
+    private int dayTimeInSecconds = GameManagerScript.dayCicle;
     private int currentDayTime = 0;
     private int elapsedDays = 0;
 
@@ -11,6 +11,7 @@ public class Employee : MonoBehaviour
     public float isGoodPercentage = 50f;
     public float canDegradePercentage = 50f;
     public float specialistPercentage = 90f;
+    public bool isGood = true;
 
     public GameManagerScript game_manager_handle;
 
@@ -21,7 +22,7 @@ public class Employee : MonoBehaviour
     private Office parentOffice;
 
     [HideInInspector] public bool canDegradeFlag;
-    /*[HideInInspector]*/ public bool isSpecialist;
+    [HideInInspector] public bool isSpecialist;
 
 
     public void Populate (string name, EnumGood[] good, EnumBad[] bad)
@@ -52,8 +53,8 @@ public class Employee : MonoBehaviour
     {
         if(good_acts.Length != 1)
         {
-            good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(good_acts.Length - 1);
-            bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
+            good_acts = GameManagerScript.EMPLOYEE_FACTORY.GenerateGoodActs(good_acts.Length - 1);
+            bad_acts = GameManagerScript.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
         }
         else
         {
@@ -63,8 +64,8 @@ public class Employee : MonoBehaviour
 
     private void DegradeActions(int specialForce)
     {
-        good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(specialForce);
-        bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
+        good_acts = GameManagerScript.EMPLOYEE_FACTORY.GenerateGoodActs(specialForce);
+        bad_acts = GameManagerScript.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
     }
 
     // Use this for initialization
@@ -81,7 +82,6 @@ public class Employee : MonoBehaviour
 
     IEnumerator Action()
     {
-        bool isGood;
 
         if (Random.Range(0f, 100f) > 100 - isGoodPercentage)
             isGood = true;
@@ -99,12 +99,15 @@ public class Employee : MonoBehaviour
             {
                 case EnumGood.spreadsheet:
                     parentOffice.ChangeScreens("Textures/Good/Materials/good_spreadsheet");
+                    parentOffice.ChangeSound("Audio/Office sounds/Keyboard typing #2 (quiet)");
                     break;
                 case EnumGood.skope:
                     parentOffice.ChangeScreens("Textures/Good/Materials/good_skope");
+                    parentOffice.ChangeSound("Audio/Social media sounds/Skype Ringtone");
                     break;
                 case EnumGood.coding:
                     parentOffice.ChangeScreens("Textures/Good/Materials/good_coding");
+                    parentOffice.ChangeSound("Audio/Office sounds/Keyboard typing");
                     break;
             }
         }
@@ -115,18 +118,23 @@ public class Employee : MonoBehaviour
             {
                 case EnumBad.netflox:
                     parentOffice.ChangeScreens("Textures/Bad/Materials/bad_netflox");
+                    parentOffice.ChangeSound("Audio/Movie sounds/Horror movie");
                     break;
                 case EnumBad.chatting:
                     parentOffice.ChangeScreens("Textures/Bad/Materials/bad_chatting");
+                    parentOffice.ChangeSound("Audio/Voice sounds/Male laugh");
                     break;
                 case EnumBad.facepok:
                     parentOffice.ChangeScreens("Textures/Bad/Materials/bad_facepok");
+                    parentOffice.ChangeSound("Audio/Social media sounds/Messenger notification");
                     break;
                 case EnumBad.gaming:
                     parentOffice.ChangeScreens("Textures/Bad/Materials/bad_gaming");
+                    parentOffice.ChangeSound("Audio/Game sounds/Arcade game");
                     break;
                 case EnumBad.broozzers:
                     parentOffice.ChangeScreens("Textures/Bad/Materials/bad_broozzers");
+                    parentOffice.ChangeSound("Audio/Other/Love noises");
                     break;
             }
         }

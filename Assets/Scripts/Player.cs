@@ -25,7 +25,10 @@ public class Player : MonoBehaviour
                 Office office = hit.transform.GetComponent<Office>();
                 if (office.IsEmpty())
                 {
-                    employeeFactory.CreateEmployee(hit.transform.GetComponent<Office>());
+                    if (GameManagerScript.playerMoney > 200)
+                    {
+                        employeeFactory.CreateEmployee(hit.transform.GetComponent<Office>());
+                    }
                 }
                 else
                 {
