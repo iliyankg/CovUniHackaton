@@ -18,9 +18,10 @@ public class Employee : MonoBehaviour
     public EnumBad[] bad_acts;
 
     private int currentAction = -1;
+    private Office parentOffice;
 
-    /*[HideInInspector] */public bool canDegradeFlag;
-    /*[HideInInspector] */public bool isSpecialist;
+    [HideInInspector] public bool canDegradeFlag;
+    /*[HideInInspector]*/ public bool isSpecialist;
 
 
     public void Populate (string name, EnumGood[] good, EnumBad[] bad)
@@ -44,6 +45,7 @@ public class Employee : MonoBehaviour
         {
             isSpecialist = false;
         }
+        parentOffice = transform.parent.GetComponent<Office>();
     }
 
     private void DegradeActions()
@@ -61,15 +63,8 @@ public class Employee : MonoBehaviour
 
     private void DegradeActions(int specialForce)
     {
-        if (good_acts.Length != 1)
-        {
-            good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(specialForce);
-            bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
-        }
-        else
-        {
-            Debug.Log("Cant Degrade More");
-        }
+        good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(specialForce);
+        bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
     }
 
     // Use this for initialization
@@ -93,34 +88,45 @@ public class Employee : MonoBehaviour
         else
             isGood = false;
 
+        if (good_acts.Length == 3)
+            isGood = true;
+
         /**************ANIM SWITCH******************/
         if (isGood)
         {
-            currentAction = Random.Range(0, good_acts.Length);
+            currentAction = (int)good_acts[Random.Range(0, good_acts.Length)];
             switch((EnumGood)currentAction)
             {
                 case EnumGood.spreadsheet:
+                    parentOffice.ChangeScreens("Textures/Good/Materials/good_spreadsheet");
                     break;
-                case EnumGood.skype:
+                case EnumGood.skope:
+                    parentOffice.ChangeScreens("Textures/Good/Materials/good_skope");
                     break;
                 case EnumGood.coding:
+                    parentOffice.ChangeScreens("Textures/Good/Materials/good_coding");
                     break;
             }
         }
         else if(!isGood)
         {
-            currentAction = Random.Range(0, bad_acts.Length);
+            currentAction = (int)bad_acts[Random.Range(0, bad_acts.Length)];
             switch ((EnumBad)currentAction)
             {
-                case EnumBad.nutflix:
+                case EnumBad.netflox:
+                    parentOffice.ChangeScreens("Textures/Bad/Materials/bad_netflox");
                     break;
                 case EnumBad.chatting:
+                    parentOffice.ChangeScreens("Textures/Bad/Materials/bad_chatting");
                     break;
-                case EnumBad.socialmedia:
+                case EnumBad.facepok:
+                    parentOffice.ChangeScreens("Textures/Bad/Materials/bad_facepok");
                     break;
                 case EnumBad.gaming:
+                    parentOffice.ChangeScreens("Textures/Bad/Materials/bad_gaming");
                     break;
-                case EnumBad.fapfap:
+                case EnumBad.broozzers:
+                    parentOffice.ChangeScreens("Textures/Bad/Materials/bad_broozzers");
                     break;
             }
         }

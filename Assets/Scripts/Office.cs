@@ -4,6 +4,7 @@ using System.Collections;
 public class Office : MonoBehaviour
 {
     public GameObject thisGameObject;
+    public GameObject screen;
     public Employee employee;
 
     public Vector3 employeePosition;
@@ -13,12 +14,7 @@ public class Office : MonoBehaviour
 	void Start ()
     {
         thisGameObject = gameObject;
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	
+        screen = transform.GetChild(0).GetChild(0).gameObject;
 	}
 
     public bool IsEmpty()
@@ -30,5 +26,11 @@ public class Office : MonoBehaviour
     {
         Destroy(employee.gameObject);
         employee = null;
+        ChangeScreens("Materials/Black screen");
+    }
+
+    public void ChangeScreens(string name)
+    {
+        screen.GetComponent<Renderer>().material = Resources.Load(name) as Material;
     }
 }

@@ -5,7 +5,7 @@ public enum EnumGood
 {
     invalid = -1,
     spreadsheet,
-    skype,
+    skope,
     coding,
     num_of_good
 }
@@ -13,11 +13,11 @@ public enum EnumGood
 public enum EnumBad
 {
     invalid = -1, 
-    nutflix,
+    netflox,
     chatting,
-    socialmedia,
+    facepok,
     gaming,
-    fapfap,
+    broozzers,
     num_of_good
 }
 
@@ -93,13 +93,13 @@ public class EmployeeFactory : MonoBehaviour
         if (goodActs.Length != 3)
             badActs = GenerateBadActs(goodActs.Length);
 
-        temp.GetComponent<Employee>().Populate(GenerateName(), goodActs, badActs);
         
         //TODO: Calculate spawn location
         temp.transform.SetParent(office.thisGameObject.transform, true);
         temp.transform.localPosition = office.employeePosition;
         temp.transform.localEulerAngles = office.employeeRotation;
         office.employee = temp.GetComponent<Employee>();
+        temp.GetComponent<Employee>().Populate(GenerateName(), goodActs, badActs);
 
         ALL_EMPLOYEES.Add(temp);
     }
