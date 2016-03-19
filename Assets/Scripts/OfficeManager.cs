@@ -5,6 +5,7 @@ public class OfficeManager : MonoBehaviour
 {
     public List<Office> offices = new List<Office>();
     public int numberFloors;
+    public int startingFloors;
     public float velocity = 5f;
 
     public GameObject floor;
@@ -16,7 +17,8 @@ public class OfficeManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        for(int i = 0; i < numberFloors; i++)
+        numberFloors = 0;
+        for(int i = 0; i < startingFloors; i++)
         {
             CreateFloor(i);
         }
@@ -30,6 +32,7 @@ public class OfficeManager : MonoBehaviour
 
     public void CreateFloor(int number)
     {
+        numberFloors++;
         Transform temp = transform.FindChild("roof");
         temp.localPosition = new Vector3(temp.localPosition.x, temp.localPosition.y + 5f, temp.localPosition.z);
 
