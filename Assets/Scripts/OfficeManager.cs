@@ -8,9 +8,13 @@ public class OfficeManager : MonoBehaviour
     public float velocity = 5f;
 
     public GameObject floor;
+    public List<GameObject> officesPrefab = new List<GameObject>();
 
-	// Use this for initialization
-	void Start ()
+    private Vector3[] officePositions = { new Vector3(0, 0, 0), new Vector3(-8.3f, 0, -1.8f), new Vector3(8.3f, 0, -1.8f), new Vector3(-15.1f, 0, -6.9f), new Vector3(15.1f, 0, -6.9f) };
+    private Vector3[] officeRotations = { new Vector3(0, 180, 0), new Vector3(0, 155.5f, 0), new Vector3(0, 204.5f, 0), new Vector3(0, 131, 0), new Vector3(0, 229, 0) };
+
+    // Use this for initialization
+    void Start ()
     {
         for(int i = 0; i < numberFloors; i++)
         {
@@ -31,7 +35,11 @@ public class OfficeManager : MonoBehaviour
         obj.name = "Floor" + (number + 1);
         for(int i = 0; i < 5; i++)
         {
-            offices.Add(obj.transform.GetChild(i).GetComponent<Office>());
+            GameObject obj2 = Instantiate(officesPrefab[Random.Range(0, 2)]);
+            obj.transform.SetParent(obj.transform, false);
+            obj2.transform.localPosition = officePositions[i];
+            obj2.transform.localEulerAngles = officeRotations[i];
+            offices.Add(obj2.GetComponent<Office>());
         }
     }
 
