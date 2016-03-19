@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Employee : MonoBehaviour
@@ -12,6 +13,8 @@ public class Employee : MonoBehaviour
     public float canDegradePercentage = 50f;
     public float specialistPercentage = 90f;
     public bool isGood = true;
+    public Sprite[] sprites = new Sprite[18];
+
 
     public GameManagerScript game_manager_handle;
 
@@ -47,6 +50,7 @@ public class Employee : MonoBehaviour
             isSpecialist = false;
         }
         parentOffice = transform.parent.GetComponent<Office>();
+        GetSprite();
     }
 
     private void DegradeActions()
@@ -78,6 +82,13 @@ public class Employee : MonoBehaviour
     void Update()
     {
 
+    }
+    void GetSprite()
+    {
+        int charNo = Random.Range(0, 9);
+        if (parentOffice.LorR == "Right")
+            charNo += 9;
+        GetComponent<SpriteRenderer>().sprite = sprites[charNo];
     }
 
     IEnumerator Action()

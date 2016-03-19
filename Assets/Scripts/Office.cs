@@ -9,6 +9,7 @@ public class Office : MonoBehaviour
     public GameObject thisGameObject;
     public GameObject screen;
     public Employee employee;
+    public string LorR;
 
     public Vector3 employeePosition;
     public Vector3 employeeRotation;

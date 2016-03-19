@@ -8,7 +8,7 @@ public class GameManagerScript : MonoBehaviour {
     public Card3 bars;
     public float floorMultiplier;
 
-    public static float playerMoney = 1000f;
+    public static float playerMoney = 1600f;
     public static float dayMoney;
 
     public static float nextFloor;
