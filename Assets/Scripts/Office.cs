@@ -6,6 +6,9 @@ public class Office : MonoBehaviour
     public GameObject thisGameObject;
     public Employee employee;
 
+    public Vector3 employeePosition;
+    public Vector3 employeeRotation;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -17,4 +20,15 @@ public class Office : MonoBehaviour
     {
 	
 	}
+
+    public bool IsEmpty()
+    {
+        return (employee == null);
+    }
+
+    public void FireEmployee()
+    {
+        Destroy(employee.gameObject);
+        employee = null;
+    }
 }

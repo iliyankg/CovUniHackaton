@@ -22,7 +22,15 @@ public class Player : MonoBehaviour
             
             if (hit.transform.tag == "Office")
             {
-                employeeFactory.CreateEmployee(hit.transform.GetComponent<Office>());
+                Office office = hit.transform.GetComponent<Office>();
+                if (office.IsEmpty())
+                {
+                    employeeFactory.CreateEmployee(hit.transform.GetComponent<Office>());
+                }
+                else
+                {
+                    office.FireEmployee();
+                }
             }
         }
 	}

@@ -8,7 +8,7 @@ public class Employee : MonoBehaviour
     private int elapsedDays = 0;
 
     public string emp_name;
-    public float isGoodPercentage = 50;
+    public float isGoodPercentage = 50f;
     public float canDegradePercentage = 50f;
     public float specialistPercentage = 90f;
 
@@ -19,8 +19,8 @@ public class Employee : MonoBehaviour
 
     private int currentAction = -1;
 
-    [HideInInspector] public bool canDegradeFlag;
-    [HideInInspector] public bool isSpecialist;
+    /*[HideInInspector] */public bool canDegradeFlag;
+    /*[HideInInspector] */public bool isSpecialist;
 
 
     public void Populate (string name, EnumGood[] good, EnumBad[] bad)
@@ -29,15 +29,16 @@ public class Employee : MonoBehaviour
         good_acts = good;
         bad_acts = bad;
 
-        if (Random.Range(0f, 100f) > canDegradePercentage)
+        if (Random.Range(0f, 100f) >= canDegradePercentage)
             canDegradeFlag = true;
         else
             canDegradeFlag = false;
 
-        if(Random.Range(0f, 100f) > specialistPercentage)
+        if(Random.Range(0f, 100f) >= specialistPercentage)
         {
             isSpecialist = true;
             canDegradeFlag = true;
+            DegradeActions(3);
         }
         else
         {
@@ -58,11 +59,11 @@ public class Employee : MonoBehaviour
         }
     }
 
-    private void DegradeActions(int speacialForce)
+    private void DegradeActions(int specialForce)
     {
         if (good_acts.Length != 1)
         {
-            good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(speacialForce);
+            good_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateGoodActs(specialForce);
             bad_acts = game_manager_handle.EMPLOYEE_FACTORY.GenerateBadActs(good_acts.Length);
         }
         else
@@ -95,22 +96,20 @@ public class Employee : MonoBehaviour
         /**************ANIM SWITCH******************/
         if (isGood)
         {
-            currentAction = Random.Range(0, good_acts.Length - 1);
+            currentAction = Random.Range(0, good_acts.Length);
             switch((EnumGood)currentAction)
             {
-                case EnumGood.fileroom:
+                case EnumGood.spreadsheet:
                     break;
                 case EnumGood.skype:
                     break;
-                case EnumGood.pcwork:
-                    break;
-                case EnumGood.photocopy:
+                case EnumGood.coding:
                     break;
             }
         }
         else if(!isGood)
         {
-            currentAction = Random.Range(0, bad_acts.Length - 1);
+            currentAction = Random.Range(0, bad_acts.Length);
             switch ((EnumBad)currentAction)
             {
                 case EnumBad.nutflix:
@@ -120,8 +119,6 @@ public class Employee : MonoBehaviour
                 case EnumBad.socialmedia:
                     break;
                 case EnumBad.gaming:
-                    break;
-                case EnumBad.onphone:
                     break;
                 case EnumBad.fapfap:
                     break;
@@ -138,24 +135,24 @@ public class Employee : MonoBehaviour
                 currentDayTime = 0;
                 elapsedDays++;
             }
-
-            if(elapsedDays >= 3)
-            {
-                elapsedDays = 0;
-
-                if (!isSpecialist)
-                    DegradeActions();
-                else
-                    DegradeActions(1);
-            }
-
+            
             yield return new WaitForSeconds(1);
             if (isGood)
                 game_manager_handle.AddMoney(10);
             else
                 game_manager_handle.RemoveMoney(10); ;
         }
-                StartCoroutine(Action());
+
+        if (elapsedDays >= 3)
+        {
+            elapsedDays = 0;
+
+            if (!isSpecialist)
+                DegradeActions();
+            else
+                DegradeActions(1);
+        }
+        StartCoroutine(Action());
     }
 
 }

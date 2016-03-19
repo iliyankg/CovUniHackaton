@@ -4,10 +4,9 @@ using System.Collections.Generic;
 public enum EnumGood
 {
     invalid = -1,
-    fileroom,
+    spreadsheet,
     skype,
-    pcwork, 
-    photocopy,
+    coding,
     num_of_good
 }
 
@@ -18,7 +17,6 @@ public enum EnumBad
     chatting,
     socialmedia,
     gaming,
-    onphone,
     fapfap,
     num_of_good
 }
@@ -29,7 +27,7 @@ public class EmployeeFactory : MonoBehaviour
 {
     private string[] male_names =
         {
-            "Mike Ross",
+            "Bob Ross",
             "Harvey Spectre",
             "Louis Litt",
             "Trevor Evans",
@@ -99,8 +97,8 @@ public class EmployeeFactory : MonoBehaviour
         
         //TODO: Calculate spawn location
         temp.transform.SetParent(office.thisGameObject.transform, true);
-        //temp.transform.Translate(0f, upOffset, 0f);
-        //temp.transform.Rotate(rotationOffset, 0f, 0f);
+        temp.transform.localPosition = office.employeePosition;
+        temp.transform.localEulerAngles = office.employeeRotation;
         office.employee = temp.GetComponent<Employee>();
 
         ALL_EMPLOYEES.Add(temp);
