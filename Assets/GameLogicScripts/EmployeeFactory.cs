@@ -80,9 +80,15 @@ public class EmployeeFactory : MonoBehaviour
     public int threeGoodPercent = 90;
     public int twoGoodPercent = 40;
 
-    public void CreateEmployee(GameObject room) //Add GameObject room for spawn location
+    public float upOffset = 2;
+    public float rotationOffset = 90;
+
+    private GameManagerScript gmScript;
+
+    public void CreateEmployee(Office office)
     {
-        GameObject temp = Instantiate(EmployeeToInstantiate);
+        GameObject temp = Instantiate(EmployeeToInstantiate, office.transform.position, office.transform.rotation) as GameObject;
+        temp.GetComponent<Employee>().game_manager_handle = gmScript;
 
         EnumGood[] goodActs = GenerateGoodActs();
         EnumBad[] badActs = { };
@@ -90,11 +96,12 @@ public class EmployeeFactory : MonoBehaviour
             badActs = GenerateBadActs(goodActs.Length);
 
         temp.GetComponent<Employee>().Populate(GenerateName(), goodActs, badActs);
-
+        
         //TODO: Calculate spawn location
-        temp.transform.SetParent(room.transform);
-        temp.transform.position = new Vector3(0f, 0f, 0f);
-        temp.transform.rotation = Quaternion.identity;
+        temp.transform.SetParent(office.thisGameObject.transform, true);
+        //temp.transform.Translate(0f, upOffset, 0f);
+        //temp.transform.Rotate(rotationOffset, 0f, 0f);
+        office.employee = temp.GetComponent<Employee>();
 
         ALL_EMPLOYEES.Add(temp);
     }
@@ -102,6 +109,7 @@ public class EmployeeFactory : MonoBehaviour
 
     void Start()
     {
+        gmScript = GetComponent<GameManagerScript>();
     }
 
     void Update()

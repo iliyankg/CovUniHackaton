@@ -5,9 +5,8 @@ public class Employee : MonoBehaviour
 {
     public string emp_name;
     public float isGoodPercentage = 50;
-
-    public GameObject gameManagerObj;
-    private GameManagerScript game_manager_handle;
+    
+    public GameManagerScript game_manager_handle;
 
     public EnumGood[] good_acts;
     public EnumBad[] bad_acts;
@@ -24,7 +23,6 @@ public class Employee : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        game_manager_handle = gameManagerObj.GetComponent<GameManagerScript>();
         StartCoroutine(Action());
     }
 
