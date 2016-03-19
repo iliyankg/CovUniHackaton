@@ -30,6 +30,9 @@ public class OfficeManager : MonoBehaviour
 
     public void CreateFloor(int number)
     {
+        Transform temp = transform.FindChild("roof");
+        temp.localPosition = new Vector3(temp.localPosition.x, temp.localPosition.y + 5f, temp.localPosition.z);
+
         GameManagerScript.numberOffices += 5;
         GameObject obj = Instantiate(floor, new Vector3(0, number * 5, 0), Quaternion.identity) as GameObject;
         obj.transform.SetParent(transform, false);
